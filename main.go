@@ -23,18 +23,23 @@ func main() {
 
 	for {
 		conn, err := listener.Accept()
-		if err != nil {
-			println(err)
+		if err == nil {
+			go handleConnection(conn)
 		}
-		fmt.Printf("Connection recived from : %s\n", conn.RemoteAddr())
-		buf := make([]byte, 1024)
-		inputLength, err := conn.Read(buf)
-		if err != nil {
-			println(err)
-		}
-		fmt.Printf("Message recived: %s", buf)
-		conn.Write(buf[0:inputLength])
-		fmt.Printf("Message echoed: %s", buf)
-		conn.Close()
 	}
+}
+
+func handleConnection(conn net.Conn) {
+
+	fmt.Printf("Connection recived from : %s\n", conn.RemoteAddr())
+	buf := make([]byte, 1024)
+	inputLength, err := conn.Read(buf)
+	if err != nil {
+		println(err)
+	}
+	fmt.Printf("Message recived: %s", buf)
+	conn.Write(buf[0:inputLength])
+	fmt.Printf("Message echoed: %s", buf)
+	conn.Close()
+
 }
