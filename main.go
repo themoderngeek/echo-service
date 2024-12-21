@@ -7,7 +7,7 @@ import (
 )
 
 func main() {
-	fmt.Print("Echo Service starting ....... ")
+	fmt.Print("Echo Service starting ........ ")
 	service := ":2020"
 	tcpAddr, err := net.ResolveTCPAddr("tcp4", service)
 	listener, err := net.ListenTCP("tcp", tcpAddr)
